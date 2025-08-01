@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraseBoom.com - Frases, Estados y Estilo para Redes</title>
+    <meta name="description" content="Encuentra las mejores frases, estados para WhatsApp y fotos de perfil para tus redes sociales. Contenido viral y original.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .burger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        .burger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        /* Categories Grid */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .category-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .category-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Content Section */
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .phrase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .phrase-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .phrase-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .phrase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .phrase-card:hover::before {
+            opacity: 1;
+        }
+        
+        .phrase-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Generator Section */
+        .generator {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+        }
+        
+        .generator h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .generated-phrase {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .generate-btn {
+            background: linear-gradient(45deg, #48cae4, #023e8a);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 1rem;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 202, 228, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #667eea;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.3s ease;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 1rem;
+            }
+            
+            .burger {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .categories {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        /* Color schemes for different categories */
+        .love { background: linear-gradient(135deg, #ff6b6b, #feca57); }
+        .reflection { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .sarcastic { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .spiritual { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .gamer { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        
+        /* Photo Gallery Styles */
+        .photo-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+        
+        .photo-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .photo-item {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 1;
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .photo-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: white;
+            text-align: center;
+        }
+        
+        .photo-placeholder p {
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .download-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Image with Phrase Styles */
+        .image-phrase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .image-phrase-card {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-phrase-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .image-content {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .phrase-overlay {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .phrase-overlay h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .phrase-overlay p {
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .image-actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-phrase-card:hover .image-actions {
+            opacity: 1;
+        }
+        
+        .share-btn, .image-actions .download-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .share-btn:hover, .image-actions .download-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">📸 FraseBoom</div>
+            <ul class="nav-links">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#frases">Frases</a></li>
+                <li><a href="#estados">Estados</a></li>
+                <li><a href="#fotos">Fotos</a></li>
+                <li><a href="#generador">Generador</a></li>
+            </ul>
+            <div class="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <h1>FraseBoom.com</h1>
+            <p>Tu lugar para frases, estados y estilo en redes sociales</p>
+            <a href="#frases" class="cta-button">Explorar Frases</a>
+            <div class="category-card" onclick="showContent('estados')">
+                <div class="category-icon">📱</div>
+                <h3>Estados WhatsApp</h3>
+                <p>Estados cortos y virales para WhatsApp</p>
+            </div>
+        </section>
+
+        <section id="fotos" class="content-section">
+            <h2>📸 Fotos de Perfil</h2>
+            <div class="photo-grid">
+                <div class="photo-category">
+                    <h3>🌸 Aesthetic</h3>
+                    <div class="photo-gallery">
+                        <div class="photo-item" style="background: linear-gradient(135deg, #ffeaa7, #fab1a0);">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-camera" style="font-size: 3rem; color: white;"></i>
+                                <img src="Aesthetic1.jpg" class="zoom" alt="Image description" width="600" height="350">
+                                <p>Foto Aesthetic #1</p>
+                            </div>
+                            <button class="download-btn">Descargar</button>
+                        </div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #a29bfe, #6c5ce7);">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-camera" style="font-size: 3rem; color: white;"></i>
+                                <img src="Aesthetic2.jpg" class="zoom" alt="Image description" width="600" height="350">
+                                <p>Foto Aesthetic #2</p>
+                            </div>
+                            <button class="download-btn">Descargar</button>
+                        </div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #fd79a8, #e84393);">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-camera" style="font-size: 3rem; color: white;"></i>
+                                <img src="Aesthetic3.jpg" class="zoom" alt="Image description" width="600" height="350">
+                                <p>Foto Aesthetic #3</p>
+                            </div>
+                            <button class="download-btn">Descargar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="photo-category">
+                    <h3>🎌 Anime</h3>
+                    <div class="photo-gallery">
+                        <div class="photo-item" style="background: linear-gradient(135deg, #ff7675, #d63031);">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-user-ninja" style="font-size: 3rem; color: white;"></i>
+                                <img src="Anime1.jpg" class="zoom" alt="Image description" width="600" height="350">
+                                <p>Anime #1</p>
+                            </div>
+                            <button class="download-btn">Descargar</button>
+                        </div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #74b9ff, #0984e3);">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-user-ninja" style="font-size: 3rem; color: white;"></i>
+                                <img src="Anime2.jpg" class="zoom" alt="Image description" width="600" height="350">
+                                <p>Anime #2</p>
+                            </div>
+                            <button class="download-btn">Descargar</button>
+                        </div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #55efc4, #00b894);">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-user-ninja" style="font-size: 3rem; color: white;"></i>
+                                <img src="Anime3.jpg" class="zoom" alt="Image description" width="600" height="350">
+                                <p>Anime #3</p>
+                            </div>
+                            <button class="download-btn">Descargar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="photo-category">
+                    <h3>🖤 Dark</h3>
+                    <div class="photo-gallery">
+                        <div class="photo-item" style="background: linear-gradient(135deg, #2d3436, #636e72);">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-moon" style="font-size: 3rem; color: white;"></i>
+                                <img src="Dark1.jpg" class="zoom" alt="Image description" width="600" height="350">
+                                <p>Dark #1</p>
+                            </div>
+                            <button class="download-btn">Descargar</button>
+                        </div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #636e72, #2d3436);">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-skull" style="font-size: 3rem; color: white;"></i>
+                                <img src="Dark2.jpg" class="zoom" alt="Image description" width="600" height="350">
+                                <p>Dark #2</p>
+                            </div>
+                            <button class="download-btn">Descargar</button>
+                        </div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #2d3436, #000000);">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-spider" style="font-size: 3rem; color: white;"></i>
+                                <img src="Dark3.jpg" class="zoom" alt="Image description" width="600" height="350">
+                                <p>Dark #3</p>
+                            </div>
+                            <button class="download-btn">Descargar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="imagenes" class="content-section">
+            <h2>🖼️ Imágenes con Frases</h2>
+            <div class="image-phrase-grid">
+                <div class="image-phrase-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="image-content">
+                        <div class="phrase-overlay">
+                            <h3>"El éxito no es casualidad"</h3>
+                            <p>Es el resultado de la preparación y la oportunidad</p>
+                        </div>
+                    </div>
+                    <div class="image-actions">
+                        <button class="share-btn"><i class="fas fa-share"></i> Compartir</button>
+                        <button class="download-btn"><i class="fas fa-download"></i> Descargar</button>
+                    </div>
+                </div>
+                
+                <div class="image-phrase-card" style="background: linear-gradient(135deg, #ff6b6b, #feca57);">
+                    <div class="image-content">
+                        <div class="phrase-overlay">
+                            <h3>"Ama sin límites"</h3>
+                            <p>Vive sin miedo, sueña sin barreras</p>
+                        </div>
+                    </div>
+                    <div class="image-actions">
+                        <button class="share-btn"><i class="fas fa-share"></i> Compartir</button>
+                        <button class="download-btn"><i class="fas fa-download"></i> Descargar</button>
+                    </div>
+                </div>
+                
+                <div class="image-phrase-card" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                    <div class="image-content">
+                        <div class="phrase-overlay">
+                            <h3>"Confía en el proceso"</h3>
+                            <p>Dios tiene el control de todo</p>
+                        </div>
+                    </div>
+                    <div class="image-actions">
+                        <button class="share-btn"><i class="fas fa-share"></i> Compartir</button>
+                        <button class="download-btn"><i class="fas fa-download"></i> Descargar</button>
+                    </div>
+                </div>
+                
+                <div class="image-phrase-card" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                    <div class="image-content">
+                        <div class="phrase-overlay">
+                            <h3>"Game Over?"</h3>
+                            <p>Press Start to Continue</p>
+                        </div>
+                    </div>
+                    <div class="image-actions">
+                        <button class="share-btn"><i class="fas fa-share"></i> Compartir</button>
+                        <button class="download-btn"><i class="fas fa-download"></i> Descargar</button>
+                    </div>
+                </div>
+                
+                <div class="image-phrase-card" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                    <div class="image-content">
+                        <div class="phrase-overlay">
+                            <h3>"Actitud de reina"</h3>
+                            <p>Porque merezco lo mejor</p>
+                        </div>
+                    </div>
+                    <div class="image-actions">
+                        <button class="share-btn"><i class="fas fa-share"></i> Compartir</button>
+                        <button class="download-btn"><i class="fas fa-download"></i> Descargar</button>
+                    </div>
+                </div>
+                
+                <div class="image-phrase-card" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                    <div class="image-content">
+                        <div class="phrase-overlay">
+                            <h3>"Modo: Imparable"</h3>
+                            <p>Cargando éxito... 100%</p>
+                        </div>
+                    </div>
+                    <div class="image-actions">
+                        <button class="share-btn"><i class="fas fa-share"></i> Compartir</button>
+                        <button class="download-btn"><i class="fas fa-download"></i> Descargar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section id="categories" class="categories">
+            <div class="category-card" onclick="showContent('amor')">
+                <div class="category-icon">💕</div>
+                <h3>Amor & Desamor</h3>
+                <p>Frases románticas, de desamor y todo sobre el amor</p>
+            </div>
+            <div class="category-card" onclick="showContent('reflexion')">
+                <div class="category-icon">🤔</div>
+                <h3>Reflexión & Motivación</h3>
+                <p>Frases profundas que te harán pensar y motivarte</p>
+            </div>
+            <div class="category-card" onclick="showContent('indirectas')">
+                <div class="category-icon">😏</div>
+                <h3>Indirectas & Sarcásticas</h3>
+                <p>Para cuando quieres decir algo sin decirlo directamente</p>
+            </div>
+            <div class="category-card" onclick="showContent('espiritual')">
+                <div class="category-icon">🙏</div>
+                <h3>Bíblicas & Espirituales</h3>
+                <p>Frases de fe, esperanza y crecimiento espiritual</p>
+            </div>
+            <div class="category-card" onclick="showContent('gamer')">
+                <div class="category-icon">🎮</div>
+                <h3>Gamer & Urbano</h3>
+                <p>Frases cool para gamers y estilo urbano</p>
+            </div>
+            <div class="category-card" onclick="showContent('fotos')">
+                <div class="category-icon">📸</div>
+                <h3>Fotos de Perfil</h3>
+                <p>Imágenes aesthetic, anime, dark y románticas</p>
+            </div>
+            <div class="category-card" onclick="showContent('imagenes')">
+                <div class="category-icon">🖼️</div>
+                <h3>Imágenes con Frases</h3>
+                <p>Posts listos para compartir en redes sociales</p>
+            </div>
+        </section>
+
+        <!-- Content Sections -->
+        <section id="amor" class="content-section">
+            <h2>💕 Frases de Amor & Desamor</h2>
+            <div class="phrase-grid">
+                <div class="phrase-card love">
+                    <div class="phrase-text">"El amor no se mira, se siente; no se explica, se vive."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card love">
+                    <div class="phrase-text">"A veces el adiós es la única forma de decir te amo."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card love">
+                    <div class="phrase-text">"No busques a quien te complete, busca a quien te complemente."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card love">
+                    <div class="phrase-text">"El corazón que ha amado nunca olvida, pero aprende a amar de nuevo."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="reflexion" class="content-section">
+            <h2>🤔 Frases de Reflexión & Motivación</h2>
+            <div class="phrase-grid">
+                <div class="phrase-card reflection">
+                    <div class="phrase-text">"No te compares con otros, tu única competencia eres tú mismo."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card reflection">
+                    <div class="phrase-text">"La vida no se trata de encontrarse a uno mismo, sino de crearse a uno mismo."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card reflection">
+                    <div class="phrase-text">"Cada día es una nueva oportunidad para ser mejor que ayer."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card reflection">
+                    <div class="phrase-text">"El éxito no es el destino, es el camino que decides tomar."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="indirectas" class="content-section">
+            <h2>😏 Indirectas & Sarcásticas</h2>
+            <div class="phrase-grid">
+                <div class="phrase-card sarcastic">
+                    <div class="phrase-text">"No necesito tu aprobación para ser feliz, pero gracias por preocuparte."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card sarcastic">
+                    <div class="phrase-text">"Algunos nacen con estrella, otros estrellados, y otros simplemente para estorbar."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card sarcastic">
+                    <div class="phrase-text">"La vida es corta, pero algunas personas la hacen eterna con su drama."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card sarcastic">
+                    <div class="phrase-text">"No todos los que te sonríen son tus amigos, algunos solo practican."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="espiritual" class="content-section">
+            <h2>🙏 Frases Bíblicas & Espirituales</h2>
+            <div class="phrase-grid">
+                <div class="phrase-card spiritual">
+                    <div class="phrase-text">"Todo tiene su tiempo, y todo lo que se quiere debajo del cielo tiene su hora."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card spiritual">
+                    <div class="phrase-text">"La fe es la certeza de lo que se espera, la convicción de lo que no se ve."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card spiritual">
+                    <div class="phrase-text">"Dios no te dará más de lo que puedes soportar."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card spiritual">
+                    <div class="phrase-text">"En sus manos están mis tiempos."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gamer" class="content-section">
+            <h2>🎮 Frases Gamer & Urbano</h2>
+            <div class="phrase-grid">
+                <div class="phrase-card gamer">
+                    <div class="phrase-text">"La vida es como un videojuego, si no juegas, no ganas."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card gamer">
+                    <div class="phrase-text">"Respawn en 3, 2, 1... De vuelta al juego."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card gamer">
+                    <div class="phrase-text">"No es lag, es mi estilo de juego."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card gamer">
+                    <div class="phrase-text">"En este juego llamado vida, yo juego en modo difícil."</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="estados" class="content-section">
+            <h2>📱 Estados para WhatsApp</h2>
+            <div class="phrase-grid">
+                <div class="phrase-card">
+                    <div class="phrase-text">"Modo: No molestar 😴"</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="phrase-text">"Cargando buena vibra... 99% 🔄"</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="phrase-text">"Disponible solo para emergencias 🚨"</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="phrase-text">"Viviendo la vida un café a la vez ☕"</div>
+                    <button class="copy-btn" onclick="copyText(this)">Copiar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Generator Section -->
+        <section id="generador" class="generator">
+            <h2>🎲 Generador de Frases</h2>
+            <p>¡Descubre frases únicas con solo un click!</p>
+            <div class="generated-phrase" id="generatedPhrase">
+                Haz click en "Generar" para descubrir una frase increíble
+            </div>
+            <button class="generate-btn" onclick="generateRandomPhrase()">🎲 Generar Frase</button>
+            <button class="copy-btn" onclick="copyGeneratedPhrase()">📋 Copiar Frase</button>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+            <p>&copy; 2025 FraseBoom.com - Todas las frases son originales y libres de uso</p>
+        </div>
+    </footer>
+
+    <script>
+        // Frases para el generador
+        const allPhrases = [
+            "El éxito no es casualidad, es el resultado de la preparación y la oportunidad.",
+            "No cuentes los días, haz que los días cuenten.",
+            "La vida es 10% lo que te pasa y 90% cómo reaccionas a ello.",
+            "Sé tú mismo, todos los demás ya están ocupados.",
+            "El futuro pertenece a quienes creen en la belleza de sus sueños.",
+            "No esperes el momento perfecto, toma el momento y hazlo perfecto.",
+            "La única forma de hacer un gran trabajo es amar lo que haces.",
+            "No se trata de tener tiempo, se trata de hacer tiempo.",
+            "El cambio es inevitable, el crecimiento es opcional.",
+            "Cada día es una nueva oportunidad para cambiar tu vida.",
+            "No busques la perfección, busca el progreso.",
+            "La vida comienza donde termina tu zona de confort.",
+            "El único límite es el que tú mismo te pones.",
+            "No mires atrás, no vas en esa dirección.",
+            "La felicidad no es un destino, es una forma de viajar.",
+            "Cree en ti mismo cuando nadie más lo haga.",
+            "El fracaso es solo una oportunidad para empezar de nuevo más inteligentemente.",
+            "No te compares con otros, tu única competencia eres tú mismo de ayer.",
+            "La vida es corta, pero es la más larga que vas a tener.",
+            "Haz de cada día tu obra maestra."
+        ];
+
+        // Función para mostrar contenido por categoría
+        function showContent(category) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Mostrar la sección seleccionada
+            const targetSection = document.getElementById(category);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Función para copiar texto
+        function copyText(button) {
+            const phraseText = button.previousElementSibling.textContent;
+            navigator.clipboard.writeText(phraseText).then(() => {
+                button.textContent = '¡Copiado!';
+                button.style.background = 'rgba(46, 213, 115, 0.3)';
+                setTimeout(() => {
+                    button.textContent = 'Copiar';
+                    button.style.background = 'rgba(255, 255, 255, 0.2)';
+                }, 2000);
+            });
+        }
+
+        // Función para generar frase aleatoria
+        function generateRandomPhrase() {
+            const randomIndex = Math.floor(Math.random() * allPhrases.length);
+            const phraseElement = document.getElementById('generatedPhrase');
+            phraseElement.textContent = allPhrases[randomIndex];
+            phraseElement.classList.add('fade-in');
+            
+            setTimeout(() => {
+                phraseElement.classList.remove('fade-in');
+            }, 600);
+        }
+
+        // Función para copiar frase generada
+        function copyGeneratedPhrase() {
+            const phraseText = document.getElementById('generatedPhrase').textContent;
+            if (phraseText !== "Haz click en \"Generar\" para descubrir una frase increíble") {
+                navigator.clipboard.writeText(phraseText).then(() => {
+                    alert('¡Frase copiada al portapapeles!');
+                });
+            }
+        }
+
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Efecto de scroll en header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Animación de entrada para las cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.category-card, .phrase-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Menú responsive
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            burger.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer click en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                burger.classList.remove('active');
+            });
+        });
+
+        // Cerrar menú al hacer click fuera
+        document.addEventListener('click', (e) => {
+            if (!burger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                burger.classList.remove('active');
+            }
+        });
+
+        // Función para descargar imágenes (placeholder)
+        function downloadImage(element) {
+            alert('¡Funcionalidad de descarga próximamente! Por ahora puedes hacer click derecho y "Guardar imagen como..."');
+        }
+
+        // Función para compartir en redes sociales
+        function shareToSocial(text, platform) {
+            const encodedText = encodeURIComponent(text + ' - FraseBoom.com');
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'instagram':
+                    alert('¡Copia la frase y compártela en tu Instagram Story!');
+                    navigator.clipboard.writeText(text);
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${encodedText}`;
+                    window.open(shareUrl, '_blank');
+                    break;
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodedText}`;
+                    window.open(shareUrl, '_blank');
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
+                    window.open(shareUrl, '_blank');
+                    break;
+            }
+        }
+
+        // Agregar eventos a botones de descarga y compartir
+        document.addEventListener('DOMContentLoaded', () => {
+            // Botones de descarga
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', () => downloadImage(btn));
+            });
+
+            // Botones de compartir
+            document.querySelectorAll('.share-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const phraseCard = btn.closest('.image-phrase-card');
+                    const phraseText = phraseCard.querySelector('h3').textContent + ' ' + phraseCard.querySelector('p').textContent;
+                    
+                    // Mostrar opciones de compartir
+                    const shareOptions = confirm('¿Quieres compartir en WhatsApp? (OK = WhatsApp, Cancelar = Copiar al portapapeles)');
+                    if (shareOptions) {
+                        shareToSocial(phraseText, 'whatsapp');
+                    } else {
+                        navigator.clipboard.writeText(phraseText);
+                        alert('¡Frase copiada al portapapeles!');
+                    }
+                });
+            });
+        });
+
+        // Generar frase inicial
+        generateRandomPhrase();
+
+        // Analytics y monetización (placeholder)
+        // Aquí puedes agregar Google Analytics, AdSense, etc.
+        console.log('FraseBoom.com cargado correctamente');
+    </script>
+</body>
+</html>
